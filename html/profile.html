@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <table id="info-table" style="border: 1px solid black;">
+    <tr>
+      <th style="border: 1px solid black;">name</th>
+      <th style="border: 1px solid black;">name</th>
+    </tr>
+  </table>
+
+  <table id="myposts-table" style="border: 1px solid black;">
+    <tr>
+      <th style="border: 1px solid black;">title</th>
+      <th style="border: 1px solid black;">contents</th>
+    </tr>
+  </table>
+</body>
+</html>
+<script>
+  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then((mylist) => {
+    const row = `
+    <td style="border: 1px solid black;">${mylist.name}</td>
+    <td style="border: 1px solid black;">${mylist.email}</td>` 
+
+    const tr = document.createElement("tr")
+    tr.innerHTML = row
+    document.getElementById("info-table").appendChild(tr)
+  })
+
+  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then((mylist) => {
+    const a = `
+      <td style="border: 1px solid black;">${mylist.title}</td>
+      <td style="border: 1px solid black;">${mylist.contents}</td>` 
+
+      const t = document.createElement("tr")
+      t.innerHTML = a
+      document.getElementById("myposts-table").appendChild(t)
+    })
+</script>

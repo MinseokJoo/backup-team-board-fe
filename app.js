@@ -1,20 +1,25 @@
 const express = require("express")
-const cookieParser = require("cookie-parser")
+const cors = require("cors")
 
 const app = express()
 
-app.use(express.json(), cookieParser())
+let corsOptions = {
+  origin: 'http://localhost:5000',
+  credentials: true
+}
+
+app.use(cors(corsOptions))
 
 app.get("/", (req,res) => {
-  res.send("home page")
-})
-
-app.get("/login", (req,res) => {
-  res.send("login page")
+  res.sendFile(__dirname + "/html/home.html")
 })
 
 app.get("/profile", (req,res) => {
-  res.send("profile page")
+  res.sendFile(__dirname + "/html/profile.html")
 })
 
-app.listen(3000,() => console.log(3000,"번 서버 열림"))
+app.get("/login", (req,res) => {
+  res.sendFile(__dirname + "/html/login.html")
+})
+
+app.listen(5100,() => console.log(5100,"번 서버 열림"))
