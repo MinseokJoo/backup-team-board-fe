@@ -7,37 +7,39 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="" id="write-form">
+  <div id="form">
+  <form action="" id="modify-form">
     <input type="text" value="" id="title" style="display: block;"><br>
   <textarea name="contents" id="contents" cols="30" rows="10" style="display: block;"></textarea><br>
-  <button type="submit">게시</button>
-  <button type="reset">초기화</button>
+  <button type="submit">수정</button>
   <button><a href="/">취소</a></button>
   </form>
+</div>
 </body>
 </html>
 <script>
-  document.getElementById("write-form").addEventListener("submit", (event) => {
+  const id = window.location.pathname.split("/")[2]
+
+  document.getElementById("modify-form").addEventListener("submit", (event) => {
     event.preventDefault()
 
     const data = {
       title: document.getElementById("title").value,
       contents : document.getElementById("contents").value
     }
-
-    fetch("http://localhost:5000/articles", {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        "Content-Type" : "application/json"
-      },
-      body: JSON.stringify(data)
-    }).then(response => response.json())
-    .then(data => {
-      alert(data.message)
+    
+      fetch(`http://localhost:5000/articles/${id}`, {
+        credentials: "include",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then(response => {
+      alert(response.message)
       location.href = "/"
-    }).catch(err => {
-      alert(err)
     })
   })
 </script>

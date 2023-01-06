@@ -11,8 +11,12 @@
   
   <a href="/profile">내정보</a>
   <a href="/login">로그인</a>
+  <button type="button" id="logout">로그아웃</button>
+  <a href="/signup">회원가입</a>
+  <a href="/write">글쓰기</a>
   <table style="border: 1px solid black;" id="article-table">
     <tr>
+      <th style="border: 1px solid black;">아이디</th>
       <th style="border: 1px solid black;">제목</th>
       <th style="border: 1px solid black;">내용</th>
       <th style="border: 1px solid black;">작성일자</th>
@@ -25,16 +29,24 @@
 </html>
 
 <script>
+  document.getElementById("logout").addEventListener("click", (event) => {
+    event.preventDefault()
+    fetch("http://localhost:5000/logout", {credentials: "include",}).then(response => {
+      location.href = "/login"
+    })
+  })
+
   fetch("http://localhost:5000/articles").then(response => response.json()).then(articles => {
     
     for (let i = 0; i < articles.length; i++) {
       const row = `
-      <td style="border: 1px solid black;">${articles[i].title}</td>
+      <td style="border: 1px solid black;">${articles[i].user_id}</td>
+      <td style="border: 1px solid black;"><a>${articles[i].title}</a></td>
       <td style="border: 1px solid black;">${articles[i].contents}</td>
       <td style="border: 1px solid black;">${articles[i].created_at}</td>
       <td style="border: 1px solid black;">${articles[i].count}</td>
       <td style="border: 1px solid black;"><button id="${articles[i].id}" onclick="del(this)">삭제</buttom></td>
-      <td style="border: 1px solid black;"> <a href="/write">수정</a></td>
+      <td style="border: 1px solid black;"><a href="/articles/${articles[i].id}">수정</a></td>
       ` 
 
       const tr = document.createElement("tr")
@@ -50,15 +62,13 @@
     fetch(`http://localhost:5000/articles/${del_id}`, {
       credentials: "include",
       method: "DELETE"
-    }).then( response =>{
-      alert(response['message'])
-       window.location.reload()
-      }).catch(err => {
-        console.log(err)
-        alert(response["message"])
+    }).then(response => response.json())
+    .then(response => {
+      alert(response.message)
+      location.href = "/"
+    })
+    .catch(err => {
+        alert(err)
       })
     }
-  
-
-
 </script>

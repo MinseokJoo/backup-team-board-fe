@@ -22,4 +22,16 @@ app.get("/login", (req,res) => {
   res.sendFile(__dirname + "/html/login.html")
 })
 
+app.get("/signup", (req,res) => {
+  res.sendFile(__dirname + "/html/signup.html")
+})
+
+app.get("/write", (req,res) => {
+  res.sendFile(__dirname + "/html/write.html")
+})
+
+app.get("/articles/:id", (req,res) => {
+  res.sendFile(__dirname + "/html/modify.html")
+})
+
 app.listen(5100,() => console.log(5100,"번 서버 열림"))

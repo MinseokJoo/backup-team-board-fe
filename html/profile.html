@@ -23,23 +23,25 @@
 </body>
 </html>
 <script>
-  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then((mylist) => {
+  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then(({info}) => {
     const row = `
-    <td style="border: 1px solid black;">${mylist.name}</td>
-    <td style="border: 1px solid black;">${mylist.email}</td>` 
+    <td style="border: 1px solid black;">${info.name}</td>
+    <td style="border: 1px solid black;">${info.email}</td>` 
 
     const tr = document.createElement("tr")
     tr.innerHTML = row
     document.getElementById("info-table").appendChild(tr)
   })
 
-  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then((mylist) => {
+  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then(({myposts}) => {
+    for (let i = 0; i < myposts.length; i++){
     const a = `
-      <td style="border: 1px solid black;">${mylist.title}</td>
-      <td style="border: 1px solid black;">${mylist.contents}</td>` 
+      <td style="border: 1px solid black;">${myposts[i].title}</td>
+      <td style="border: 1px solid black;">${myposts[i].contents}</td>` 
 
       const t = document.createElement("tr")
       t.innerHTML = a
       document.getElementById("myposts-table").appendChild(t)
+    }
     })
 </script>
