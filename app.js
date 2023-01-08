@@ -34,4 +34,8 @@ app.get("/articles/:id", (req,res) => {
   res.sendFile(__dirname + "/html/modify.html")
 })
 
+app.get("/detail/:id", (req,res) =>{
+  res.sendFile(__dirname + "/html/detail.html")
+})
+
 app.listen(5100,() => console.log(5100,"번 서버 열림"))

@@ -40,6 +40,8 @@
         .then(response => {
       alert(response.message)
       location.href = "/"
+    }).catch(err => {
+      alert(err.message)
     })
   })
 </script>

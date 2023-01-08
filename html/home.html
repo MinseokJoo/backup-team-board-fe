@@ -16,7 +16,6 @@
   <a href="/write">글쓰기</a>
   <table style="border: 1px solid black;" id="article-table">
     <tr>
-      <th style="border: 1px solid black;">아이디</th>
       <th style="border: 1px solid black;">제목</th>
       <th style="border: 1px solid black;">내용</th>
       <th style="border: 1px solid black;">작성일자</th>
@@ -40,13 +39,12 @@
     
     for (let i = 0; i < articles.length; i++) {
       const row = `
-      <td style="border: 1px solid black;">${articles[i].user_id}</td>
-      <td style="border: 1px solid black;"><a>${articles[i].title}</a></td>
-      <td style="border: 1px solid black;">${articles[i].contents}</td>
+      <td style="border: 1px solid black; text-"><a href="/detail/${articles[i].id}">${articles[i].title}</a></td>
+      <td style="border: 1px solid black; text-"><a href="/detail/${articles[i].id}">${articles[i].contents}</a></td>
       <td style="border: 1px solid black;">${articles[i].created_at}</td>
       <td style="border: 1px solid black;">${articles[i].count}</td>
       <td style="border: 1px solid black;"><button id="${articles[i].id}" onclick="del(this)">삭제</buttom></td>
-      <td style="border: 1px solid black;"><a href="/articles/${articles[i].id}">수정</a></td>
+      <td style="border: 1px solid black; text-"><a href="/articles/${articles[i].id}">수정</a></td>
       ` 
 
       const tr = document.createElement("tr")
