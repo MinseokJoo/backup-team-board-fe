@@ -37,7 +37,8 @@
       alert(data.message)
       location.href = "/"
     }).catch(err => {
-      alert(err)
+      alert(err.message)
+      window.location.reload()
     })
   })
 </script>

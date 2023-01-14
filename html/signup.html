@@ -63,7 +63,8 @@
       alert(data.message)
       location.href = "/login"
     }).catch(err => {
-      alert(data.message)
+      window.location.reload()
+      alert("다 적어라")
     })
   })
 </script>

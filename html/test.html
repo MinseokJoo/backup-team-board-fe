@@ -70,9 +70,38 @@
             const tr = document.createElement("button")
             tr.innerHTML = row
             document.getElementById("buttonWrap").appendChild(tr)
+        } else if (info.pageInfo.lastPage === 4 ){
+          const row =`
+          <button  background-color: rgba(1, 1, 1, 1)>${info.pageInfo.currentPage}</button>
+            <button onclick="location.href='/?page=2'">${info.pageInfo.currentPage + 1}</button>
+            <button onclick="location.href='/?page=3'">${info.pageInfo.currentPage + 2}</button>
+            <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
+            `
+            const tr = document.createElement("button")
+            tr.innerHTML = row
+            document.getElementById("buttonWrap").appendChild(tr)
+        } else if (info.pageInfo.lastPage === 3) {
+          const row =`
+          <button  background-color: rgba(1, 1, 1, 1)>${info.pageInfo.currentPage}</button>
+            <button onclick="location.href='/?page=2'">${info.pageInfo.currentPage + 1}</button>
+            <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
+            `
+            const tr = document.createElement("button")
+            tr.innerHTML = row
+            document.getElementById("buttonWrap").appendChild(tr)
         } else if (info.pageInfo.lastPage === 2){
           const row =`
           <button  background-color: rgba(1, 1, 1, 1)>${info.pageInfo.currentPage}</button>
+            <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
+            `
+            const tr = document.createElement("button")
+            tr.innerHTML = row
+            document.getElementById("buttonWrap").appendChild(tr)
+        }else {
+          const row = `
+            <button  background-color: rgba(1, 1, 1, 1) >${info.pageInfo.currentPage}</button>
+            <button onclick="location.href='/?page=${info.pageInfo.currentPage + 1}'">${info.pageInfo.currentPage + 1}</button>
+            <button onclick="location.href='/?page=${info.pageInfo.currentPage + 2}'">${info.pageInfo.currentPage + 2}</button>
             <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
             `
             const tr = document.createElement("button")
@@ -99,83 +128,36 @@
       document.getElementById("article-table").appendChild(tr)
     }
     if(info.pageInfo.lastPage > 5) {
-      if (page === 3) {
-            const row = `
-        <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
-        <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
-        <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
-        <button onclick="location.href='/?page=${page + 2}'">...</button>
-        <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
-        ` 
-        const tr = document.createElement("button")
-        tr.innerHTML = row
-        document.getElementById("buttonWrap").appendChild(tr)
-        return
-          }  else if (page === info.pageInfo.lastPage) {
-            const row = `
-        <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
-        <button onclick="location.href='/?page=${page - 1}'">${info.pageInfo.lastPage - 1}</button>
-        <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
-        ` 
-        const tr = document.createElement("button")
-        tr.innerHTML = row
-        document.getElementById("buttonWrap").appendChild(tr)
-        return
-          } else if (page === (info.pageInfo.lastPage - 1)) {
-            const row = `
-            <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
-        <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
-        <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
-        <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
-        ` 
-        const tr = document.createElement("button")
-        tr.innerHTML = row
-        document.getElementById("buttonWrap").appendChild(tr)
-        return
-          } else if (page === (info.pageInfo.lastPage - 2)) {
-            const row = `
-            <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
-        <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
-        <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
-        <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
-        <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
-        ` 
-        const tr = document.createElement("button")
-        tr.innerHTML = row
-        document.getElementById("buttonWrap").appendChild(tr)
-        return
-          }  else if(page < 3) {
-        const row = `
-        <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
-        <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
-        <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
-        <button onclick="location.href='/?page=${page + 2}'">...</button>
-        <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
-        ` 
-        const tr = document.createElement("button")
-        tr.innerHTML = row
-        document.getElementById("buttonWrap").appendChild(tr)
-        return
-          }else if (page > 3) {
-            const row = `
-        <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
-        <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
-        <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
-        <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
-        <button onclick="location.href='/?page=${page + 2}'">...</button>
-        <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
-        ` 
-        const tr = document.createElement("button")
-        tr.innerHTML = row
-        document.getElementById("buttonWrap").appendChild(tr)
-        return
-          }
-    }
+      const row = `
+      <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
+      <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
+      <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
+      <button onclick="location.href='/?page=${page + 2}'">...</button>
+      <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
+      ` 
+      const tr = document.createElement("button")
+      tr.innerHTML = row
+      document.getElementById("buttonWrap").appendChild(tr)
+        }  else if (info.pageInfo.lastPage === 2){
+          const row = `
+          <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
+            <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
+            `
+            const tr = document.createElement("button")
+            tr.innerHTML = row
+            document.getElementById("buttonWrap").appendChild(tr)
+        }
+        else {
+          const row = `
+          <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
+          <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
+          <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
+            <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
+            `
+            const tr = document.createElement("button")
+            tr.innerHTML = row
+            document.getElementById("buttonWrap").appendChild(tr)
+        }
       })
   }
   
