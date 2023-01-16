@@ -59,12 +59,12 @@
           tr.innerHTML = row
           document.getElementById("article-table").appendChild(tr)
         }
-        if(info.pageInfo.lastPage > 5) {
+        if(info.pageInfo.lastPage >= 5) {
           const row = `
             <button  background-color: rgba(1, 1, 1, 1)>${info.pageInfo.currentPage}</button>
             <button onclick="location.href='/?page=${info.pageInfo.currentPage + 1}'">${info.pageInfo.currentPage + 1}</button>
             <button onclick="location.href='/?page=${info.pageInfo.currentPage + 2}'">${info.pageInfo.currentPage + 2}</button>
-            <button onclick="location.href='/?page=4'">...</button>
+            <span>...</span>
             <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
             `
             const tr = document.createElement("button")
@@ -82,7 +82,7 @@
       })
     } else {
       
-  fetch(`http://localhost:5000/articles/?page=${page}`).then(response => response.json()).then(info => {
+  fetch(`http://localhost:5000/articles?page=${page}`).then(response => response.json()).then(info => {
     
     for (let i = 0; i < info["rows"].length; i++) {
       const row = `
@@ -98,14 +98,14 @@
       tr.innerHTML = row
       document.getElementById("article-table").appendChild(tr)
     }
-    if(info.pageInfo.lastPage > 5) {
+    if(info.pageInfo.lastPage >= 5) {
       if (page === 3) {
             const row = `
         <button onclick="location.href='/'">1</button>
         <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
         <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
         <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
-        <button onclick="location.href='/?page=${page + 2}'">...</button>
+        <span>...</span>
         <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
         ` 
         const tr = document.createElement("button")
@@ -115,7 +115,7 @@
           }  else if (page === info.pageInfo.lastPage) {
             const row = `
         <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
+        <span>...</span>
         <button onclick="location.href='/?page=${page - 1}'">${info.pageInfo.lastPage - 1}</button>
         <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
         ` 
@@ -126,7 +126,7 @@
           } else if (page === (info.pageInfo.lastPage - 1)) {
             const row = `
             <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
+        <span>...</span>
         <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
         <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
         <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
@@ -138,7 +138,7 @@
           } else if (page === (info.pageInfo.lastPage - 2)) {
             const row = `
             <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
+        <span>...</span>
         <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
         <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
         <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
@@ -153,7 +153,7 @@
         <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
         <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
         <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
-        <button onclick="location.href='/?page=${page + 2}'">...</button>
+        <span>...</span>
         <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
         ` 
         const tr = document.createElement("button")
@@ -163,11 +163,11 @@
           }else if (page > 3) {
             const row = `
         <button onclick="location.href='/'">1</button>
-        <button onclick="location.href='/?page=${page - 2}'">...</button>
+        <span>...</span>
         <button onclick="location.href='/?page=${page-1}'">${page - 1}</button>
         <button  style="background-color: rgba(40, 40, 40, 0.4);">${page}</button>
         <button onclick="location.href='/?page=${page+1}'">${page + 1}</button>
-        <button onclick="location.href='/?page=${page + 2}'">...</button>
+        <span>...</span>
         <button onclick="location.href='/?page=${info.pageInfo.lastPage}'">${info.pageInfo.lastPage}</button>
         ` 
         const tr = document.createElement("button")

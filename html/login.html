@@ -40,9 +40,10 @@
       body: JSON.stringify(data)
     }).then(response => response.json())
     .then(data => {
+      alert(data.message)
       location.href = "/"
     }).catch(err => {
-      alert("실패 ㅜ")
+      alert("실패")
       window.location.reload()
     })
   })
