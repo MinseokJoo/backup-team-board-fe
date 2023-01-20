@@ -7,6 +7,9 @@
   <title>Document</title>
 </head>
 <body>
+  <div>
+    <a href="/">호므로</a>
+  </div><br>
   <table id="info-table" style="border: 1px solid black;">
     <tr>
       <th style="border: 1px solid black;">name</th>
@@ -23,21 +26,21 @@
 </body>
 </html>
 <script>
-  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then(({info}) => {
+  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then(({userInfo}) => {
     const row = `
-    <td style="border: 1px solid black;">${info.name}</td>
-    <td style="border: 1px solid black;">${info.email}</td>` 
+    <td style="border: 1px solid black;">${userInfo.name}</td>
+    <td style="border: 1px solid black;">${userInfo.email}</td>` 
 
     const tr = document.createElement("tr")
     tr.innerHTML = row
     document.getElementById("info-table").appendChild(tr)
   })
 
-  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then(({myposts}) => {
-    for (let i = 0; i < myposts.length; i++){
+  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then(({myArticles}) => {
+    for (let i = 0; i < myArticles.length; i++){
     const a = `
-      <td style="border: 1px solid black;">${myposts[i].title}</td>
-      <td style="border: 1px solid black;">${myposts[i].contents}</td>` 
+      <td style="border: 1px solid black;">${myArticles[i].title}</td>
+      <td style="border: 1px solid black;">${myArticles[i].contents}</td>` 
 
       const t = document.createElement("tr")
       t.innerHTML = a

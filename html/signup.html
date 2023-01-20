@@ -14,18 +14,19 @@
     </div>
     <div>
       <label for="email" style="display:inline-block; width: 130px;">이메일</label>
-      <input type="email" placeholder="이메일를 입력하세요." id="email" name="email">
+      <input type="email" placeholder="이메일를 입력하세요." id="email" name="email" required>
     </div>
     <div>
       <label for="password" style="display:inline-block; width: 130px;">비밀번호</label>
-      <input type="password" placeholder="비밀번호 입력하세요" id="password" name="password">
+      <input type="password" placeholder="비밀번호 입력하세요" id="password" name="password" required>
     </div>
     <div>
       <label for="confirm" style="display:inline-block; width: 130px;">비밀번호 확인</label>
-      <input type="password" placeholder="비밀번호 재입력하세요" id="confirm" name="confirm">
+      <input type="password" placeholder="비밀번호 재입력하세요" id="confirm" name="confirm" required>
       <p id="confirmMsg"></p>
     </div>
     <button type="submit">회원가입</button>
+    <a href="/">취소</a>
   </form>
 </body>
 </html>
@@ -41,6 +42,7 @@
       document.getElementById("confirmMsg").innerHTML="비밀번호가 일치."
     }
   });
+  
 
   document.getElementById("signup-form").addEventListener("submit", (event) => {
     event.preventDefault()
@@ -48,7 +50,8 @@
     const data = {
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
-      password : document.getElementById("password").value
+      password : document.getElementById("password").value,
+      confirm : document.getElementById("confirm").value
     }
 
     fetch("http://localhost:5000/signup", {
@@ -60,11 +63,20 @@
       body: JSON.stringify(data)
     }).then(response => response.json())
     .then(data => {
-      alert(data.message)
-      location.href = "/login"
+      if(data.notSame) {
+        alert(data.notSame)
+        return window.location.reload()
+      }
+      if(data.alreadyEmail) {
+        alert(data.alreadyEmail)
+        return window.location.reload()
+      }
+      if (data.message) {
+        alert(data.message)
+        location.href = "/login"
+      }
     }).catch(err => {
       window.location.reload()
-      alert("다 적어라")
     })
   })
 </script>

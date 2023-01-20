@@ -8,8 +8,8 @@
 </head>
 <body>
   <form action="" id="write-form">
-    <input type="text" value="" id="title" style="display: block;"><br>
-  <textarea name="contents" id="contents" cols="30" rows="10" style="display: block;"></textarea><br>
+    <input type="text" value="" id="title" style="display: block;" required><br>
+  <textarea name="contents" id="contents" cols="30" rows="10" style="display: block;" required></textarea><br>
   <button type="submit">게시</button>
   <button type="reset">초기화</button>
   <button><a href="/">취소</a></button>
@@ -34,6 +34,10 @@
       body: JSON.stringify(data)
     }).then(response => response.json())
     .then(data => {
+      if (data.notEnough) {
+        alert(data.notEnough)
+        return window.location.reload()
+      }
       alert(data.message)
       location.href = "/"
     }).catch(err => {

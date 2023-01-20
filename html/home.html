@@ -8,12 +8,7 @@
 </head>
 
 <body>
-  
-  <a href="/profile">내정보</a>
-  <a href="/login">로그인</a>
-  <button type="button" id="logout">로그아웃</button>
-  <a href="/signup">회원가입</a>
-  <a href="/write">글쓰기</a>
+<div id="asd"></div>
   <table style="border: 1px solid black;" id="article-table">
     <tr>
       <th style="border: 1px solid black;">제목</th>
@@ -32,12 +27,36 @@
 </html>
 
 <script>
-  document.getElementById("logout").addEventListener("click", (event) => {
+  if(!document.cookie){
+    const b = `
+    <a href="/profile">내정보</a>
+    <a href="/login">로그인</a>
+    <a href="/signup">회원가입</a>
+    <a href="/write">글쓰기</a>
+    `
+    const div = document.createElement("div")
+          div.innerHTML = b
+          document.getElementById("asd").appendChild(div)
+  } else if(document.cookie) {
+    const b = `
+    <a href="/profile">내정보</a>
+    <button type="button" id="logout">로그아웃</button>
+    <a href="/write">글쓰기</a>
+    `
+
+    const div = document.createElement("div")
+          div.innerHTML = b
+          document.getElementById("asd").appendChild(div)
+    
+          
+    document.getElementById("logout").addEventListener("click", (event) => {
     event.preventDefault()
     fetch("http://localhost:5000/logout", {credentials: "include",}).then(response => {
       location.href = "/login"
     })
   })
+  }
+
 
   let query = window.location.search;
   let param = new URLSearchParams(query);
@@ -45,14 +64,14 @@
     if(!page || page === 1) {
       fetch("http://localhost:5000/articles").then(response => response.json()).then(info => {
         
-        for (let i = 0; i < info["rows"].length; i++) {
+        for (let i = 0; i < info["articles"].length; i++) {
           const row = `
-          <td style="border: 1px solid black; text-"><a href="/detail/${info.rows[i].id}">${info.rows[i].title}</a></td>
-          <td style="border: 1px solid black; text-"><a href="/detail/${info.rows[i].id}">${info.rows[i].contents}</a></td>
-          <td style="border: 1px solid black;">${info.rows[i].created_at}</td>
-          <td style="border: 1px solid black;">${info.rows[i].count}</td>
-          <td style="border: 1px solid black;"><button id="${info.rows[i].id}" onclick="del(this)">삭제</buttom></td>
-          <td style="border: 1px solid black; text-"><a href="/articles/${info.rows[i].id}">수정</a></td>
+          <td style=" border: 1px solid black;"><a href="/detail/${info.articles[i].id}">${info.articles[i].title}</a></td>
+          <td style="display:block;border: 1px solid black; width:1000px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><a href="/detail/${info.articles[i].id}">${info.articles[i].contents}</a></td>
+          <td style="border: 1px solid black;">${info.articles[i].created_at}</td>
+          <td style="border: 1px solid black;">${info.articles[i].count}</td>
+          <td style="border: 1px solid black;"><button id="${info.articles[i].id}" onclick="del(this)">삭제</buttom></td>
+          <td style="border: 1px solid black;><a href="/articles/${info.articles[i].id}">수정</a></td>
           ` 
     
           const tr = document.createElement("tr")
@@ -84,14 +103,14 @@
       
   fetch(`http://localhost:5000/articles?page=${page}`).then(response => response.json()).then(info => {
     
-    for (let i = 0; i < info["rows"].length; i++) {
+    for (let i = 0; i < info["articles"].length; i++) {
       const row = `
-      <td style="border: 1px solid black; text-"><a href="/detail/${info.rows[i].id}">${info.rows[i].title}</a></td>
-      <td style="border: 1px solid black; text-"><a href="/detail/${info.rows[i].id}">${info.rows[i].contents}</a></td>
-      <td style="border: 1px solid black;">${info.rows[i].created_at}</td>
-      <td style="border: 1px solid black;">${info.rows[i].count}</td>
-      <td style="border: 1px solid black;"><button id="${info.rows[i].id}" onclick="del(this)">삭제</buttom></td>
-      <td style="border: 1px solid black; text-"><a href="/articles/${info.rows[i].id}">수정</a></td>
+      <td style="border: 1px solid black;"><a href="/detail/${info.articles[i].id}">${info.articles[i].title}</a></td>
+      <td style="display:block;border: 1px solid black; width:1000px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><a href="/detail/${info.articles[i].id}">${info.articles[i].contents}</a></td>
+      <td style="border: 1px solid black;">${info.articles[i].created_at}</td>
+      <td style="border: 1px solid black;">${info.articles[i].count}</td>
+      <td style="border: 1px solid black;"><button id="${info.articles[i].id}" onclick="del(this)">삭제</buttom></td>
+      <td style="border: 1px solid black; "><a href="/articles/${info.articles[i].id}">수정</a></td>
       ` 
 
       const tr = document.createElement("tr")
