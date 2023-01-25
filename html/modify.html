@@ -9,16 +9,27 @@
 <body>
   <div id="form">
   <form action="" id="modify-form">
-    <input type="text" value="" id="title" style="display: block;"><br>
-  <textarea name="contents" id="contents" cols="30" rows="10" style="display: block;"></textarea><br>
-  <button type="submit">수정</button>
-  <button><a href="/">취소</a></button>
+
+
   </form>
 </div>
 </body>
 </html>
 <script>
-  const id = window.location.pathname.split("/")[2]
+    const id = window.location.pathname.split("/")[2]
+    fetch(`http://localhost:5000/articles/${id}`, {credentials: "include"}).then(response => response.json()).then((post) => {
+    const row = `
+    <input type="text" value="${post.title}" id="title" style="display: block;"><br>
+    <textarea name="contents" id="contents" cols="30" rows="10" style="display: block;">${post.title}</textarea><br>
+    <button type="submit">수정</button>
+  <button><a href="/">취소</a></button>
+    ` 
+
+    const tr = document.createElement("tr")
+    tr.innerHTML = row
+    document.getElementById("modify-form").appendChild(tr)
+  })
+
 
   document.getElementById("modify-form").addEventListener("submit", (event) => {
     event.preventDefault()

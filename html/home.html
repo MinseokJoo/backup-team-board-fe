@@ -13,10 +13,9 @@
     <tr>
       <th style="border: 1px solid black;">제목</th>
       <th style="border: 1px solid black;">내용</th>
+      <th style="border: 1px solid black;">작성자</th>
       <th style="border: 1px solid black;">작성일자</th>
       <th style="border: 1px solid black;">조회수</th>
-      <th style="border: 1px solid black;">수정</th>
-      <th style="border: 1px solid black;">삭제</th>
     </tr>
   </table>
   <div id="buttonWrap">
@@ -67,10 +66,9 @@
           const row = `
           <td style=" border: 1px solid black;"><a href="/detail/${info.articles[i].id}">${info.articles[i].title}</a></td>
           <td style="display:block;border: 1px solid black; width:1000px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><a href="/detail/${info.articles[i].id}">${info.articles[i].contents}</a></td>
+          <td style="border: 1px solid black;">${info.articles[i].user.name}</td>
           <td style="border: 1px solid black;">${info.articles[i].created_at}</td>
           <td style="border: 1px solid black;">${info.articles[i].count}</td>
-          <td style="border: 1px solid black;"><button id="${info.articles[i].id}" onclick="del(this)">삭제</buttom></td>
-          <td style="border: 1px solid black;"><a href="/articles/${info.articles[i].id}">수정</a></td>
           ` 
     
           const tr = document.createElement("tr")
@@ -108,8 +106,7 @@
       <td style="display:block;border: 1px solid black; width:1000px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><a href="/detail/${info.articles[i].id}">${info.articles[i].contents}</a></td>
       <td style="border: 1px solid black;">${info.articles[i].created_at}</td>
       <td style="border: 1px solid black;">${info.articles[i].count}</td>
-      <td style="border: 1px solid black;"><button id="${info.articles[i].id}" onclick="del(this)">삭제</buttom></td>
-      <td style="border: 1px solid black; "><a href="/articles/${info.articles[i].id}">수정</a></td>
+
       ` 
 
       const tr = document.createElement("tr")
@@ -200,19 +197,5 @@
 
 
 
-  function del(id) {
-    const del_id = document.getElementById(id.getAttribute('id')).getAttribute('id')
 
-    fetch(`http://localhost:5000/articles/${del_id}`, {
-      credentials: "include",
-      method: "DELETE"
-    }).then(response => response.json())
-    .then(response => {
-      alert(response.message)
-      location.href = "/"
-    })
-    .catch(err => {
-      alert(err.message)
-    })
-    }
 </script>

@@ -7,7 +7,9 @@
   <title>Document</title>
 </head>
 <body>
-  <a href="/">호므로</a>
+  <div id="button">
+    <a href="/">호므로</a>
+  </div>
   <table id="contents-table">
   </table>
 </body>
@@ -24,5 +26,31 @@
     const tr = document.createElement("tr")
     tr.innerHTML = row
     document.getElementById("contents-table").appendChild(tr)
+
+    const a = `
+    <button id="${post.id}" onclick="del(this)">삭제</button>
+    <a href="/articles/${post.id}">수정</a>
+    `
+
+    const b = document.createElement("tr")
+    b.innerHTML = a
+    document.getElementById("button").appendChild(b)
   })
+
+  function del(id) {
+    const del_id = document.getElementById(id.getAttribute('id')).getAttribute('id')
+    console.log(del_id)
+
+    fetch(`http://localhost:5000/articles/${del_id}`, {
+      credentials: "include",
+      method: "DELETE"
+    }).then(response => response.json())
+    .then(response => {
+      alert(response.message)
+      location.href = "/"
+    })
+    .catch(err => {
+      alert(err.message)
+    })
+    }
 </script>

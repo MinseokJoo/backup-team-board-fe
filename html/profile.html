@@ -34,17 +34,15 @@
     const tr = document.createElement("tr")
     tr.innerHTML = row
     document.getElementById("info-table").appendChild(tr)
+
+    for (let i = 0; i < userInfo.articles.length; i++){
+      const a = `
+        <td style="border: 1px solid black;">${userInfo.articles[i].title}</td>
+        <td style="border: 1px solid black;">${userInfo.articles[i].contents}</td>` 
+  
+        const t = document.createElement("tr")
+        t.innerHTML = a
+        document.getElementById("myposts-table").appendChild(t)
+}
   })
-
-  fetch("http://localhost:5000/userInfos", {credentials: "include"}).then(response => response.json()).then(({myArticles}) => {
-    for (let i = 0; i < myArticles.length; i++){
-    const a = `
-      <td style="border: 1px solid black;">${myArticles[i].title}</td>
-      <td style="border: 1px solid black;">${myArticles[i].contents}</td>` 
-
-      const t = document.createElement("tr")
-      t.innerHTML = a
-      document.getElementById("myposts-table").appendChild(t)
-    }
-    })
 </script>
