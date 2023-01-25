@@ -38,6 +38,10 @@
       })
         .then((response) => response.json())
         .then(response => {
+          if(response.hhh) {
+            alert(response.hhh)
+            return location.href = "/"
+          }
       alert(response.message)
       location.href = "/"
     }).catch(err => {

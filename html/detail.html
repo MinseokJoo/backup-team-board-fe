@@ -7,6 +7,7 @@
   <title>Document</title>
 </head>
 <body>
+  <a href="/">호므로</a>
   <table id="contents-table">
   </table>
 </body>
@@ -15,15 +16,10 @@
   const id = window.location.pathname.split("/")[2]
   fetch(`http://localhost:5000/articles/${id}`, {credentials: "include"}).then(response => response.json()).then((post) => {
     const row = `
-    <th style="border: 1px solid black;">${post.title}</th>` 
-
-    const tr = document.createElement("tr")
-    tr.innerHTML = row
-    document.getElementById("contents-table").appendChild(tr)
-  })
-
-  fetch(`http://localhost:5000/articles/${id}`, {credentials: "include"}).then(response => response.json()).then((post) => {
-    const row = `<td style="border: 1px solid black;">${post.contents}</td>` 
+    <th style="border: 1px solid black;">${post.title}</th>
+    <td style="border: 1px solid black;">${post.count}</td>
+    <td style="border: 1px solid black;">${post.contents}</td>
+    ` 
 
     const tr = document.createElement("tr")
     tr.innerHTML = row

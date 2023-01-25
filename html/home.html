@@ -27,9 +27,8 @@
 </html>
 
 <script>
-  if(!document.cookie){
+  if(document.cookie.search("jwt") < 0){
     const b = `
-    <a href="/profile">내정보</a>
     <a href="/login">로그인</a>
     <a href="/signup">회원가입</a>
     <a href="/write">글쓰기</a>
@@ -71,7 +70,7 @@
           <td style="border: 1px solid black;">${info.articles[i].created_at}</td>
           <td style="border: 1px solid black;">${info.articles[i].count}</td>
           <td style="border: 1px solid black;"><button id="${info.articles[i].id}" onclick="del(this)">삭제</buttom></td>
-          <td style="border: 1px solid black;><a href="/articles/${info.articles[i].id}">수정</a></td>
+          <td style="border: 1px solid black;"><a href="/articles/${info.articles[i].id}">수정</a></td>
           ` 
     
           const tr = document.createElement("tr")
